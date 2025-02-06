@@ -8,12 +8,8 @@ export class VistaHome extends Vista {
     constructor(controlador, div) {
         super(controlador, div);
         document.getElementById('index').onclick = () => {
-        window.location.href = '../../../../../mvc/index.html';
-        
-    };
-    console.log(div)
+            window.location.href = '/MacroBuddy/mvc/index.html';
+        };
+        console.log(div);
     }
-
-
-  
 }
