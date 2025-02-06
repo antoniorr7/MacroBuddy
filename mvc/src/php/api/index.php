@@ -15,7 +15,7 @@
         BD::$host = $config['host_bd'];
         BD::$usuario = $config['usuario_bd'];
         BD::$clave = $config['clave_bd'];
-
+        
 
         // Procesamos la petición para identificar el recurso solicitado y sus parámetros
         $metodo = $_SERVER['REQUEST_METHOD'];
@@ -62,22 +62,13 @@
         $controlador = false;
         switch ($recurso) {
             case 'login':
-                require_once('./controllers/login.php');
-                $controlador = new Login();
-                break;
-
-         
-                case 'constantes':
-                require_once('./controllers/constantes.php');
-                Constantes::$precioTupper = $config['precio_tupper'];
-                Constantes::$precioMenu = $config['precio_menu'];
-                    $controlador = new Constantes();
-                break;
-                case 'calendario':
-                    require_once('./controllers/calendario.php');                       
-                    $controlador = new Calendario();
-                    break;
-
+            require_once('./controller/login.php');
+            $controlador = new Login();
+            break;
+            case 'usuarios':
+            require_once('./controller/usuario.php');
+            $controlador = new Usuarios();
+            break;
 
             default:
                 header('HTTP/1.1 501 Not Implemented');
@@ -86,7 +77,7 @@
         if ($controlador) {
 					switch($metodo) {
 							case 'GET':
-									$controlador->get($pathParams, $queryParams, $usuario);
+									$controlador->get($pathParams, $queryParams);
 									die();
 
 							case 'POST':

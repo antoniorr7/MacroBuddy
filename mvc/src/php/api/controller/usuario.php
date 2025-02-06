@@ -45,5 +45,25 @@
             header('HTTP/1.1 200 OK');
             die();
         }
+
+        /**
+         * Obtiene usuarios de la tabla usuario.
+         * @param array $pathParams No utilizado.
+         * @param array $queryParams Parámetros de consulta.
+         * @param object $datos No utilizado.
+       
+         */
+        function get($pathParams, $queryParams, $datos) {
+            try {
+                $usuarios = DAOUsuario::obtenerUsuarios($queryParams);
+                header('Content-type: application/json; charset=utf-8');
+                header('HTTP/1.1 200 OK');
+                echo json_encode($usuarios);
+            } catch (Exception $e) {
+                header('HTTP/1.1 500 Internal Server Error');
+                die();
+            }
+            die();
+        }
     }
 ?>

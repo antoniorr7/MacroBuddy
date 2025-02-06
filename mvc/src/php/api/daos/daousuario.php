@@ -12,9 +12,9 @@ class DAOUsuario
      * @param int $id ID del usuario.
      * @return object|boolean Devuelve los datos del usuario o false si no existe el usuario. 
      */
-    public static function obtenerUsuarioPorId($id)
+    public static function osbtenerUsuarios()
     {
-        $sql = 'SELECT id, nombre FROM usuarios WHERE id = :id';
+        $sql = 'SELECT id, nombre FROM usuarios';
         $params = array('id' => $id);
         $resultado = BD::seleccionar($sql, $params);
 
