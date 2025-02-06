@@ -11,5 +11,11 @@ export class VistaHome extends Vista {
             window.location.href = '/MacroBuddy/mvc/index.html';
         };
         console.log(div);
+        document.getElementById('usuario').onclick = () => {
+            window.location.href = '../../../mvc/src/views/usuario.html';
+        };
     }
+   
+        
+    
 }

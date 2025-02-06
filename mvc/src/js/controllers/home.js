@@ -15,7 +15,7 @@ class ControladorHome {
     constructor() {
         window.onload = this.iniciar.bind(this);
        
-        console.log("hola");
+    
     }
 
     /**
@@ -57,9 +57,6 @@ class ControladorHome {
         this.parte3.mostrar(true);
     }
 
-   
-   
-  
 }
 
 new ControladorHome();
