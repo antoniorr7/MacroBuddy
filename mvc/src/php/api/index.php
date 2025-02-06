@@ -33,30 +33,30 @@
 
         $body = json_decode(file_get_contents('php://input'));
 
-        // Autenticación
-        $usuario = null;
-        require_once('./controllers/login.php');
-        require_once('./controllers/logingoogle.php');
+        // // Autenticación
+        // $usuario = null;
+        // require_once('./controllers/login.php');
+        // require_once('./controllers/logingoogle.php');
 
-        // Inyección de dependencias
-        Login::$clave = $config['clave_encriptacion'];
-        Login::$algoritmo_encriptacion = $config['algoritmo_encriptacion'];
-        LoginGoogle::$clave = $config['clave_encriptacion'];
-        LoginGoogle::$algoritmo_encriptacion = $config['algoritmo_encriptacion'];
+        // // Inyección de dependencias
+        // Login::$clave = $config['clave_encriptacion'];
+        // Login::$algoritmo_encriptacion = $config['algoritmo_encriptacion'];
+        // LoginGoogle::$clave = $config['clave_encriptacion'];
+        // LoginGoogle::$algoritmo_encriptacion = $config['algoritmo_encriptacion'];
 
-        // Utilizamos Authorization2 en lugar de Authorization por un bug de NGINX que no transmite esa cabecera
-        if (array_key_exists('Authorization2', apache_request_headers())) {
-            $autorizacion = apache_request_headers()['Authorization2'];
+        // // Utilizamos Authorization2 en lugar de Authorization por un bug de NGINX que no transmite esa cabecera
+        // if (array_key_exists('Authorization2', apache_request_headers())) {
+        //     $autorizacion = apache_request_headers()['Authorization2'];
 
-            if ($autorizacion != "null")
-                $usuario = json_decode(Login::desencriptar($autorizacion));
-        }
+        //     if ($autorizacion != "null")
+        //         $usuario = json_decode(Login::desencriptar($autorizacion));
+        // }
 
-        // Logging
-        if ($config['log']) {
-            require_once('./services/log.php');
-            Log::registrar($usuario, $recurso, $metodo, $pathParams, $queryParams, $body);
-        }
+        // // Logging
+        // if ($config['log']) {
+        //     require_once('./services/log.php');
+        //     Log::registrar($usuario, $recurso, $metodo, $pathParams, $queryParams, $body);
+        // }
 
         // Routing
         $controlador = false;
@@ -66,58 +66,7 @@
                 $controlador = new Login();
                 break;
 
-            case 'login_google':
-                require_once('./controllers/logingoogle.php');
-                LoginGoogle::$secretaria = $config["correo_secretaria"];
-                $controlador = new LoginGoogle();
-                break;
-
-            case 'persona':
-                require_once('./controllers/persona.php');
-                $controlador = new Persona();
-                break;
-
-            case 'padres':
-                require_once('./controllers/padres.php');
-                $controlador = new Padres();
-                break;
-                
-            case 'hijos':
-                require_once('./controllers/hijos.php');
-                $controlador = new Hijos();
-                break;
-                
-            case 'recuperar':
-                require_once('./controllers/recuperar.php');
-                $controlador = new Recuperar();
-                break;
-
-            case 'restaurar':
-                require_once('./controllers/restaurar.php');
-                $controlador = new Restaurar();
-                break;
-
-            case 'cursos':
-                require_once('./controllers/cursos.php');
-                $controlador = new Cursos();
-                break;
-
-            case 'dias':
-                require_once('./controllers/dias.php');
-        				 Dias::$hora_limite = $config['hora_limite'];
-                $controlador = new Dias();
-                break;
-
-            case 'festivos':
-                require_once('./controllers/festivos.php');
-                $controlador = new Festivos();
-                break;
-
-            case 'secretaria':
-                require_once('./controllers/secretaria.php');                       
-                $controlador = new Secretaria();
-                break;
-
+         
                 case 'constantes':
                 require_once('./controllers/constantes.php');
                 Constantes::$precioTupper = $config['precio_tupper'];
