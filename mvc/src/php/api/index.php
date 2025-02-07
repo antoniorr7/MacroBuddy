@@ -65,9 +65,9 @@
             require_once('./controller/login.php');
             $controlador = new Login();
             break;
-            case 'usuarios':
+            case 'usuario':
             require_once('./controller/usuario.php');
-            $controlador = new Usuarios();
+            $controlador = new Usuario();
             break;
 
             default:

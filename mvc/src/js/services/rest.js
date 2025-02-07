@@ -31,7 +31,7 @@ export class Rest {
 		method: 'GET',
 		headers: Rest._getHeaders()
 	  }
-  
+  console.log("path", path, "pathParams", pathParams, "queryParams", queryParams)
 	  return fetch(Rest._construirURL(path, pathParams, queryParams), opciones) // Hacemos la petición
 		.then(respuesta => {
 		  // Control de Errores

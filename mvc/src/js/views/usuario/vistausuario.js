@@ -7,12 +7,9 @@ export class VistaUsuario extends Vista {
    
     constructor(controlador, div) {
         super(controlador, div);
-        this.obtenerUsuarios();
+       
     }
    
-    obtenerUsuarios() {
-        this.usuarios = this.controlador.obtenerUsuarios();
-    }
 cargarUsuarios(usuarios) {
             let tabla = '<table><tr><th>ID</th><th>Nombre</th></tr>';
             for(let u of usuarios) {

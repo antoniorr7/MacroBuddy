@@ -14,6 +14,7 @@ export class VistaHome extends Vista {
         document.getElementById('usuario').onclick = () => {
             window.location.href = '../../../mvc/src/views/usuario.html';
         };
+   
     }
    
         
