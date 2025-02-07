@@ -5,7 +5,7 @@ class ControladorUsuario {
     constructor() {
         window.onload = () => {
             this.modelo = new Modelo();
-            
+
             this.obtenerUsuarios();
             this.listado = new VistaUsuario(this, document.getElementById('listado'));
             this.masinfo = new VistaUsuario(this, document.getElementById('masinfo'));
@@ -31,7 +31,6 @@ class ControladorUsuario {
     }
 
      obtenerUsuarios() {
-       console.log("obtenerUsuarios");
         this.modelo.obtenerUsuarios()
          .then(u => {
              this.listado.cargarUsuarios(u);

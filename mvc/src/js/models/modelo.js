@@ -13,7 +13,7 @@ export class Modelo {
      * @returns {Promise} Devuelve la promesa asociada a la petición.
      */
     obtenerUsuarios() {
-        return Rest.get("usuario", [], []);
+        return Rest.get("usuarios", [], []);
     }
 
   

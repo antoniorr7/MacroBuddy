@@ -4,7 +4,7 @@
     /**
      * Controlador de registro de usuarios.
      */
-    class Usuario {
+    class Usuarios {
         /**
          * Inserta fila a la tabla usuario.
          * @param array $pathParams No utilizado.

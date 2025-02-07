@@ -65,9 +65,9 @@
             require_once('./controller/login.php');
             $controlador = new Login();
             break;
-            case 'usuario':
-            require_once('./controller/usuario.php');
-            $controlador = new Usuario();
+            case 'usuarios':
+            require_once('./controller/usuarios.php');
+            $controlador = new Usuarios();
             break;
 
             default:
@@ -77,7 +77,7 @@
         if ($controlador) {
 					switch($metodo) {
 							case 'GET':
-									$controlador->get($pathParams, $queryParams);
+									$controlador->get($pathParams, $queryParams, $body);
 									die();
 
 							case 'POST':
