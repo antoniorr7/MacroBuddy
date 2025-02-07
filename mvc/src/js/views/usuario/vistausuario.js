@@ -10,13 +10,22 @@ export class VistaUsuario extends Vista {
        
     }
    
-cargarUsuarios(usuarios) {
-            let tabla = '<table><tr><th>ID</th><th>Nombre</th></tr>';
-            for(let u of usuarios) {
-                    tabla += `<tr><td>${u.id}</td><td>${u.nombre}</td></tr>`;
-            }
-            tabla += '</table>';
-            console.log(this.div, "asdkfñlasdkf")
-            this.div.innerHTML = tabla;
+    cargarUsuarios(usuarios) {
+        console.log("usuarios:", usuarios);
+    
+        // Si usuarios no es un array, lo convertimos en uno
+        if (!Array.isArray(usuarios)) {
+            usuarios = [usuarios];  // Convertir objeto en un array con un solo elemento
+        }
+    
+        let tabla = '<table border="1" cellspacing="0" cellpadding="5"><tr><th>ID</th><th>Nombre</th></tr>';
+        for (const u of usuarios) {
+            tabla += `<tr><td>${u.id}</td><td>${u.nombre}</td></tr>`;
+        }
+        tabla += '</table>';
+        this.div.innerHTML = tabla;
     }
+    
+    
+    
 }

@@ -33,6 +33,7 @@ class ControladorUsuario {
      obtenerUsuarios() {
         this.modelo.obtenerUsuarios()
          .then(u => {
+            console.log(u);
              this.listado.cargarUsuarios(u);
          })
          .catch(e => {

@@ -8,19 +8,20 @@
 **/
 
 export class Rest {
-	static #URL = 'php/api/index.php'
-	static #autorizacion = null
-  
+	// Actualizamos la URL base para que apunte a la ubicación deseada
+	static #URL = 'http://localhost/MacroBuddy/mvc/src/php/api/index.php';
+	static #autorizacion = null;
+	
 	/**
 	  Establece la autorización para las llamadas al servidor.
 	  La autorización se envía en la cabecera HTTP Authorization.
 	**/
 	static setAutorizacion (autorizacion) {
-	  Rest.#autorizacion = autorizacion
+	  Rest.#autorizacion = autorizacion;
 	}
-  
+	
 	/**
-	  Realiza una llamada AJAX por GET
+	  Realiza una llamada AJAX por GET.
 	  @param path {String} Path del recurso solicitado.
 	  @param pathParams {Array} Parámetros de path que se añadirán a la llamada.
 	  @param queryParams {Map} Mapa de parámetros que se añadirán después del path.
@@ -30,27 +31,30 @@ export class Rest {
 	  const opciones = {
 		method: 'GET',
 		headers: Rest._getHeaders()
-	  }
-  console.log("path", path, "pathParams", pathParams, "queryParams", queryParams)
+	  };
+	
 	  return fetch(Rest._construirURL(path, pathParams, queryParams), opciones) // Hacemos la petición
 		.then(respuesta => {
-		  // Control de Errores
-		  if (!respuesta.ok) throw Error(`${respuesta.status} - ${respuesta.statusText}`)
+		  // Control de errores
+		  if (!respuesta.ok) throw Error(`${respuesta.status} - ${respuesta.statusText}`);
 		  // Comprobamos si es JSON válido
-		  const tipo = respuesta.headers.get('content-type')
-		  if (tipo && tipo.indexOf('application/json') !== -1) { return respuesta.json() }
-		  // No es json
-		  return respuesta.text()
-		})
-	
+		  const tipo = respuesta.headers.get('content-type');
+		  if (tipo && tipo.indexOf('application/json') !== -1) { 
+		
+			return respuesta.json();
+		  }
+		  // No es JSON
+		
+		  return respuesta.text();
+		});
 	}
-  
+	
 	/**
-	  Realiza una llamada AJAX por POST
+	  Realiza una llamada AJAX por POST.
 	  @param path {String} Path del recurso solicitado.
 	  @param pathParams {Array} Parámetros de path que se añadirán a la llamada.
 	  @param requestBody {Object} Objeto que se pasa como parámetro en el body de la llamada.
-	  @param json {Boolean} Normalmente, la llamada POST devolverá un texto con la URL del nuevo recurso creado. Opcionalmente, especificando el parámetro json a true se obtiene el resultado en formato JSON.
+	  @param json {Boolean} Indica si la respuesta se espera en JSON.
 	  @return {Promise} Devuelve una promesa.
 	**/
 	static post (path, pathParams = [], requestBody = null, json = false) {
@@ -58,23 +62,17 @@ export class Rest {
 		method: 'POST',
 		headers: Rest._getHeaders(),
 		body: JSON.stringify(requestBody)
-	  }
-
-	  // Construimos la petición
+	  };
 	  
-	  return fetch(Rest._construirURL(path, pathParams), opciones) // Hacemos la petición
+	  return fetch(Rest._construirURL(path, pathParams), opciones)
 		.then(respuesta => {
-		  // Control de Errores
-		  if (!respuesta.ok) { throw Error(`${respuesta.status} - ${respuesta.statusText}`) }
-			
-		  if (json) return respuesta.json() // Si fuera json.
-		  // La respuesta es un texto con la URL del recurso creado.
-		  else return respuesta.text()
-		})
+		  if (!respuesta.ok) { throw Error(`${respuesta.status} - ${respuesta.statusText}`); }
+		  return json ? respuesta.json() : respuesta.text();
+		});
 	}
-  
+	
 	/**
-	  Realiza una llamada AJAX por DELETE
+	  Realiza una llamada AJAX por DELETE.
 	  @param path {String} Path del recurso solicitado.
 	  @param pathParams {Array} Parámetros de path que se añadirán a la llamada.
 	  @return {Promise} Devuelve una promesa.
@@ -83,23 +81,20 @@ export class Rest {
 	  const opciones = {
 		method: 'DELETE',
 		headers: Rest._getHeaders()
-	  }
-	  // Construimos la petición
-	  return fetch(Rest._construirURL(path, pathParams), opciones) // Hacemos la petición
+	  };
+	  return fetch(Rest._construirURL(path, pathParams), opciones)
 		.then(respuesta => {
-		  // Control de Errores
-		  if (!respuesta.ok) throw Error(`${respuesta.status} - ${respuesta.statusText}`)
-  
-		  return true
-		})
+		  if (!respuesta.ok) throw Error(`${respuesta.status} - ${respuesta.statusText}`);
+		  return true;
+		});
 	}
-  
+	
 	/**
-	  Realiza una llamada AJAX por PUT
+	  Realiza una llamada AJAX por PUT.
 	  @param path {String} Nombre del recurso solicitado.
 	  @param pathParams {Array} Parámetros de path que se añadirán a la llamada.
 	  @param requestBody {Object} Objeto que se pasa como parámetro en la llamada.
-	  @param json {Boolean} Normalmente, la llamada POST devolverá un texto con la URL del nuevo recurso creado. Opcionalmente, especificando el parámetro json a true se obtiene el resultado en formato JSON.
+	  @param json {Boolean} Indica si la respuesta se espera en JSON.
 	  @return {Promise} Devuelve una promesa.
 	**/
 	static put (path, pathParams = [], requestBody = null, json = false) {
@@ -107,39 +102,59 @@ export class Rest {
 		method: 'PUT',
 		headers: Rest._getHeaders(),
 		body: JSON.stringify(requestBody)
-	  }
-	  // Construimos la petición
-	  return fetch(Rest._construirURL(path, pathParams), opciones) // Hacemos la petición
+	  };
+	  return fetch(Rest._construirURL(path, pathParams), opciones)
 		.then(respuesta => {
-		  // Control de Errores
-		  if (!respuesta.ok) { throw Error(`${respuesta.status} - ${respuesta.statusText}`) }
-  
-		  if (json) return respuesta.json() // Si fuera json.
-		  // La respuesta es un texto con la URL del recurso creado.
-		  else return respuesta.text()
-		})
+		  if (!respuesta.ok) { throw Error(`${respuesta.status} - ${respuesta.statusText}`); }
+		  return json ? respuesta.json() : respuesta.text();
+		});
 	}
-  
-	// Métodos internos no documentado.
+	
+	// Métodos internos no documentados.
 	static _getHeaders () {
 	  return {
 		Accept: 'application/json',
 		'Content-Type': 'application/json',
 		Authorization2: Rest.#autorizacion
-	  }
+	  };
 	}
+	
+	/**
+	  Construye la URL completa para la petición.
+	  @param path {String} El recurso que se quiere acceder.
+	  @param pathParams {Array} Array de parámetros adicionales para la ruta.
+	  @param queryParams {Object|null} Objeto con parámetros de query.
+	  @return {String} La URL construida.
+	**/
+	static _construirURL(path, pathParams = [], queryParams = null) {
+	  // Convertir cada parámetro null en la cadena "null"
+	  const processedParams = pathParams.map(param => param === null ? 'null' : param);
+	  
+	  // Construir la URL base concatenando la constante y la ruta
+	  let url = `${Rest.#URL}/${path}`;
+	  
+	  // Si hay parámetros de ruta, se añaden separados por '/'
+	  if (processedParams.length > 0 && processedParams.join('') !== '') {
+		url += '/' + processedParams.join('/');
+	  } else {
+		// Si no hay parámetros, asegurar que la URL termine en '/'
+		if (!url.endsWith('/')) {
+		  url += '/';
+		}
+	  }
+	  
+	  // Construir el query string si existen parámetros
+	  if (queryParams && typeof queryParams === 'object' && Object.keys(queryParams).length > 0) {
+		const queryString = Object.keys(queryParams)
+		  .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(queryParams[key])}`)
+		  .join('&');
+		url += '?' + queryString;
+	  }
+	  
+	  // Codificar la URL completa
+	  url = encodeURI(url);
+	  console.log(url);
+	  return url;
+	}
+  }
   
-	static _construirURL (path, pathParams = [], queryParams) {
-	  let url = `${Rest.#URL}/${path}/${pathParams.join('/')}`
-	  if (queryParams) {
-		url += '?'
-		queryParams.forEach((valor, clave) => {
-		  url += `${clave}=${valor}&`
-		})
-		url = url.substring(0, url.length - 1)
-	  }
-	  url = encodeURI(url.replace('//', '/null/')) // aseguramos los parámetros nulos.
-	  console.log(url)
-	  return url
-	}
-}
