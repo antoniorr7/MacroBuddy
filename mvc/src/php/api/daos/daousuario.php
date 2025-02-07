@@ -39,4 +39,16 @@ class DAOUsuario
 
         return $usuario;
     }
+    /**
+     * Inserta un nuevo usuario en la base de datos.
+     * @param string $nombre Nombre del usuario.
+     * @return boolean Devuelve true si el usuario fue insertado correctamente, false en caso contrario.
+     */
+    public static function altaUsuario($nombre)
+    {
+        var_dump($nombre);
+        $sql = 'INSERT INTO usuarios (nombre) VALUES (:nombre)';
+        $params = [':nombre' => $nombre];
+        return BD::insertar($sql, $params);
+    }
 }

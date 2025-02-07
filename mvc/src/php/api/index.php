@@ -61,10 +61,7 @@
         // Routing
         $controlador = false;
         switch ($recurso) {
-            case 'login':
-            require_once('./controller/login.php');
-            $controlador = new Login();
-            break;
+            
             case 'usuarios':
             require_once('./controller/usuarios.php');
             $controlador = new Usuarios();
@@ -81,7 +78,7 @@
 									die();
 
 							case 'POST':
-									$controlador->post($pathParams, $queryParams, $body, $usuario);
+									$controlador->post($pathParams, $queryParams, $body);
 									die();
 
 							case 'DELETE':

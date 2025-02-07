@@ -16,7 +16,14 @@ export class Modelo {
        
         return Rest.get("usuarios", [], []);
     }
-
+    /**
+     * Realiza el proceso de insertar un nuevo usuario en la tabla usuario.
+     * @param {Object} usuario - El objeto usuario a insertar.
+     * @returns {Promise} Devuelve la promesa asociada a la petición.
+     */
+    insertarUsuario(usuario) {
+        return Rest.post("usuarios",[], usuario);
+    }
   
 
 }

@@ -12,7 +12,7 @@
          * @param object $datos Datos del usuario.
          * @param object $usuario Usuario que realiza el proceso.
          */
-        function post($pathParams, $queryParams, $datos, $usuario) {
+        function post($pathParams, $queryParams, $datos) {
             // Insertar en tabla de usuarios.
             try {
                 $id = DAOUsuario::altaUsuario($datos);
